@@ -1,13 +1,29 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import UserDropDown from "./UserDropDown";
 function Navbar() {
+  const [has, setHas] = useState(false);
   const path = usePathname();
+
+  useEffect(() => {
+    const Call = async () => {
+      try {
+        const res = await axios.get("/api/isLoggedin");
+        setHas(res.data.has);
+      } catch (err) {
+        console.error("Error:", err);
+      }
+    };
+
+    Call();
+  }, []); // [] daalna important hai warna har render pe call hoga
+
   return (
     <>
       <div className="border-b-1 px-6 flex justify-between items-center w-full h-[10vh]">
@@ -37,8 +53,19 @@ function Navbar() {
           </Link>
         </div>
         <div className="flex justify-around items-center w-[10%]">
-            <Link href='/cart'><FontAwesomeIcon icon={faCartShopping} /></Link>
-            <Link href='/log-in' className="bg-blue-400 text-center p-2 w-2/4 font-semibold hover:bg-blue-500 rounded-3xl" >Login</Link>
+          <Link href="/cart">
+            <FontAwesomeIcon icon={faCartShopping} />
+          </Link>
+          {has ? (
+            <UserDropDown />
+          ) : (
+            <Link
+              href="/log-in"
+              className="bg-blue-400 text-center p-2 w-2/4 font-semibold hover:bg-blue-500 rounded-3xl"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </>
