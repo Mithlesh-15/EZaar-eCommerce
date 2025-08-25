@@ -1,34 +1,44 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface Product extends Document {
-  image: string;
-  prouctName: string;
-  productDiscription: string;
-  productPrice: number;
+  imageUrl: string;
+  productName: string;
+  price: number;
+  totalStock: number;
   availableStock: number;
+  category: string;
+  description: string;
 }
 
 const productSchema: Schema<Product> = new Schema({
-  image: {
-    type: String,
-    require: true,
+  imageUrl:{
+    type:String,
+    required:true
   },
-  prouctName: {
-    type: String,
-    require: true,
+  productName:{
+    type:String,
+    required:true
   },
-  productDiscription: {
-    type: String,
-    require: true,
+  price:{
+    type:Number,
+    required:true
   },
-  productPrice: {
-    type: Number,
-    require: true,
+  totalStock:{
+    type:Number,
+    required:true
   },
-  availableStock: {
-    type: Number,
-    require: true,
+  availableStock:{
+    type:Number,
+    required:true
   },
+  category:{
+    type:String,
+    required:true
+  },
+  description:{
+    type:String,
+    required:true
+  }
 });
 
 const Products =

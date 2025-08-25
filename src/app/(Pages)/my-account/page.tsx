@@ -10,22 +10,20 @@ function MyAccount() {
     <>
       <Navbar />
       <div className="w-full h-[90vh] ">
-        <div className="h-full w-[30vh] flex flex-col items-center py-5 font-bold gap-9 border-r-2 ">
-          <Link
-            className={path === "/my-account" ? "text-blue-800" : "text-black"}
-            href="/my-account"
-          >
-            My Account
-          </Link>
-          <Link
-            className={
-              path === "/create-new-product" ? "text-blue-800":"text-black" 
-            }
-            href="/create-new-product"
-          >
-            Create New Product
-          </Link>
-        </div>
+        <div className="w-full md:w-[13vw] h-auto md:h-full flex flex-col items-center py-5 font-bold gap-6 border-b-2 md:border-b-0 md:border-r-2">
+    <Link
+      className={path === "/my-account" ? "text-blue-800" : "text-black"}
+      href="/my-account"
+    >
+      My Account
+    </Link>
+    <Link
+      className={path === "/create-new-product" ? "text-blue-800" : "text-black"}
+      href="/create-new-product"
+    >
+      Create New Product
+    </Link>
+  </div>
       </div>
     </>
   );

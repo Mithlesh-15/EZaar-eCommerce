@@ -21,7 +21,7 @@ export default function UserDropDown() {
   };
 
   return (
-    <div className="relative inline-block text-left">
+    <div className={"relative inline-block text-left"}>
       <button
         onClick={toggleDropdown}
         className="flex items-center justify-center w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,24 +11,13 @@ function Navbar() {
   const [has, setHas] = useState(false);
   const path = usePathname();
 
-  useEffect(() => {
-    const Call = async () => {
-      try {
-        const res = await axios.get("/api/isLoggedin");
-        setHas(res.data.has);
-      } catch (err) {
-        console.error("Error:", err);
-      }
-    };
-
-    Call();
-  }, []); // [] daalna important hai warna har render pe call hoga
-
   return (
     <>
-      <div className="border-b-1 px-6 flex justify-between items-center w-full h-[10vh]">
-        <Image src="/logoWith.png" width={100} height={100} alt="Logo" />
-        <div className="font-bold flex justify-around w-[40%]">
+      <div className="border-b-1 flex justify-between items-center w-full h-[10vh] ">
+        <div className={"h-full w-[20%] ml-2 flex justify-center items-center"}>
+          <Image src="/logoWith.png" width={100} height={100} alt="Logo" priority/>
+        </div>
+        <div className="font-bold flex justify-around w-[50%] lg:w-[35%]">
           <Link
             href="/"
             className={`${path === "/" ? "text-blue-800" : "text-black"}`}
@@ -52,11 +41,11 @@ function Navbar() {
             Contact
           </Link>
         </div>
-        <div className="flex justify-around items-center w-[10%]">
+        <div className={"flex justify-around items-center w-[20%] mr-1 md:w-[15%] lg:w-[10%] "}>
           <Link href="/cart">
             <FontAwesomeIcon icon={faCartShopping} />
           </Link>
-          {has ? (
+          {true ? (
             <UserDropDown />
           ) : (
             <Link
