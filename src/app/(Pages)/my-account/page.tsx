@@ -18,7 +18,6 @@ interface Pro {
 function MyAccount() {
   const path = usePathname();
   const [allProducts, setAllProducts] = useState<Pro[]>([]);
-  const arr = [{ img: "kkkkk" }, { img: "mmmmm" }];
   const fatchData = async () => {
     const res = await axios.get("/api/my-product-data");
     if(res.data.allProduct) setAllProducts(res.data.allProduct);
