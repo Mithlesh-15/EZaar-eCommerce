@@ -18,6 +18,7 @@ function Product() {
   const [Product, setProduct] = useState<Pro[]>([])
   const fetchData = async () => {
   const res = await axios.get('/api/get-all-product')
+ if(res.data.allProduct === undefined) return
   setProduct(res.data.allProduct)
   };
   useEffect(()=>{
@@ -27,7 +28,7 @@ fetchData()
     <>
       <Navbar />
       <div className="py-4 px-10 flex flex-wrap gap-6">
-        {Product.length>0 && Product.map((item) => (
+        {Product.length>0  ? Product.map((item) => (
                     <div key={Math.random()}>
                       <ProductCard
                               imageUrl={item.imageUrl}
@@ -39,7 +40,7 @@ fetchData()
                               owner={false}
                             />
                     </div>
-                  ))}
+                  )):"No Product"}
         <Footer />
       </div>
     </>
