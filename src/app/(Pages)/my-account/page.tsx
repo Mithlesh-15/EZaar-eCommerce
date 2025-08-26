@@ -4,16 +4,28 @@ import ProductCard from "@/components/ProductCard";
 import axios from "axios";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+interface Pro {
+  _id:string;
+  imageUrl: string;
+  productName: string;
+  price: number;
+  totalStock: number;
+  availableStock: number;
+  category: string;
+  description: string;
+}
 function MyAccount() {
   const path = usePathname();
-  const fatchData = async ()=>{
-        await axios.get("/api/my-product-data")
-  }
-  useEffect(()=>{
-    fatchData()
-  })
+  const [allProducts, setAllProducts] = useState<Pro[]>([]);
+  const fatchData = async () => {
+    const res = await axios.get("/api/my-product-data");
+    setAllProducts(res.data.allProduct);
+    console.log(res);
+  };
+  useEffect(() => {
+    fatchData();
+  }, []);
   return (
     <>
       <Navbar />
@@ -34,20 +46,28 @@ function MyAccount() {
             Create New Product
           </Link>
         </div>
-      <div className="w-full h-[80vh] md:h-full flex justify-center md:justify-start p-10 gap-6 flex-wrap overflow-auto">
-        <ProductCard
-                imageUrl="https://images.unsplash.com/photo-1520209759809-a9bcb6cb3241?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                productName="kaka ji"
-                price={30}
-                availableStock={500}
-                category="nhi pata"
-                description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus non, ut aspernatur quo facere blanditiis.'
-                owner={true}
-              />
+        <div className="w-full h-[80vh] md:h-full flex justify-center md:justify-start p-10 gap-6 flex-wrap overflow-auto">
+          {allProducts.length > 0 ? 
+          `${
+          allProducts.map(item => {
+            <div key={item._id}>
 
-              
-      </div>
-        
+              <ProductCard
+                      imageUrl={item.imageUrl}
+                      productName={item.productName}
+                      price={item.price}
+                      availableStock={item.availableStock}
+                      category={item.category}
+                      description={item.description}
+                      owner={true}
+                    />
+            </div>
+          })
+          
+          }`
+          
+          :"No product"}
+        </div>
       </div>
     </>
   );
