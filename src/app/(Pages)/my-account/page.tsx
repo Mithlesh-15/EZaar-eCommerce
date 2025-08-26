@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 interface Pro {
-  _id:string;
+  _id: string;
   imageUrl: string;
   productName: string;
   price: number;
@@ -18,10 +18,11 @@ interface Pro {
 function MyAccount() {
   const path = usePathname();
   const [allProducts, setAllProducts] = useState<Pro[]>([]);
+  const arr = [{ img: "kkkkk" }, { img: "mmmmm" }];
   const fatchData = async () => {
     const res = await axios.get("/api/my-product-data");
-    setAllProducts(res.data.allProduct);
-    console.log(res);
+    if(res.data.allProduct) setAllProducts(res.data.allProduct);
+    
   };
   useEffect(() => {
     fatchData();
@@ -47,11 +48,8 @@ function MyAccount() {
           </Link>
         </div>
         <div className="w-full h-[80vh] md:h-full flex justify-center md:justify-start p-10 gap-6 flex-wrap overflow-auto">
-          {allProducts.length > 0 ? 
-          `${
-          allProducts.map(item => {
-            <div key={item._id}>
-
+          {allProducts.length>0 && allProducts.map((item) => (
+            <div key={Math.random()}>
               <ProductCard
                       imageUrl={item.imageUrl}
                       productName={item.productName}
@@ -62,11 +60,7 @@ function MyAccount() {
                       owner={true}
                     />
             </div>
-          })
-          
-          }`
-          
-          :"No product"}
+          ))}
         </div>
       </div>
     </>
