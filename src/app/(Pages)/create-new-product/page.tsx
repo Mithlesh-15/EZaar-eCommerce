@@ -17,7 +17,7 @@ function CreateNewProduct() {
   const [btnDisable, setBtnDisable] = useState(false);
   const router = useRouter();
   const submitHandle = async () => {
-    // setBtnDisable(true);
+    setBtnDisable(true);
     await axios.post("/api/create-product", {
       imageUrl,
       productName,

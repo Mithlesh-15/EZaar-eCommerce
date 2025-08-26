@@ -13,6 +13,7 @@ export default function Home() {
         availableStock={500}
         category="nhi pata"
         description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus non, ut aspernatur quo facere blanditiis.'
+        owner={false}
       />
       <Footer />
     </>
