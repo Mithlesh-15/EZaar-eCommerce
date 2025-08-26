@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Trash } from "lucide-react";
 
 type ProductType = {
   imageUrl: string;
@@ -10,7 +10,7 @@ type ProductType = {
   availableStock: number;
   category: string;
   description: string;
-  owner:boolean
+  owner: boolean;
 };
 
 export default function ProductCard({
@@ -20,11 +20,8 @@ export default function ProductCard({
   availableStock,
   category,
   description,
-  owner
+  owner,
 }: ProductType) {
-
-  
-
   return (
     <div className="w-[300px] bg-white rounded-xl shadow-md p-5 flex flex-col gap-4 border-1">
       {/* Category */}
@@ -46,12 +43,8 @@ export default function ProductCard({
       {/* Product Title */}
       <h2 className="text-xl font-bold">{productName}</h2>
 
-
-
       {/* Description */}
-      <p className="text-gray-600 text-sm">
-       {description}
-      </p>
+      <p className="text-gray-600 text-sm">{description}</p>
 
       {/* Price Section */}
       <div className="flex items-center gap-3">
@@ -61,17 +54,22 @@ export default function ProductCard({
 
       {/* Stock Info */}
       <p className="text-sm text-gray-600">
-        Total Stocks Available: <span className="font-medium">{availableStock}</span>
+        Total Stocks Available:{" "}
+        <span className="font-medium">{availableStock}</span>
       </p>
 
-     
-      
-
       {/* Add To Cart Button */}
-      {owner?"hello":<button className="mt-3 flex items-center justify-center gap-2 bg-black text-white px-4 py-2 rounded-lg shadow hover:bg-gray-800 transition">
-        <ShoppingCart size={18} />
-        Add To Cart
-      </button>}
+      {owner ? (
+        <button className="mt-3 flex items-center justify-center gap-2 bg-red-700 text-white px-4 py-2 rounded-lg shadow hover:bg-red-900 transition">
+          <Trash size={18} />
+          Delete
+        </button>
+      ) : (
+        <button className="mt-3 flex items-center justify-center gap-2 bg-black text-white px-4 py-2 rounded-lg shadow hover:bg-gray-800 transition">
+          <ShoppingCart size={18} />
+          Add To Cart
+        </button>
+      )}
     </div>
   );
 }
