@@ -15,10 +15,9 @@ function Navbar() {
     const chaek = async () => {
       const res = await axios.get("/api/is-logged-in");
       setHas(res.data.logIn);
-      console.log(res.data.logIn)
+      console.log(res.data.logIn);
     };
     chaek();
-    
   }, []);
 
   return (
@@ -37,6 +36,7 @@ function Navbar() {
           <Link
             href="/"
             className={`${path === "/" ? "text-blue-800" : "text-black"}`}
+            prefetch={true}
           >
             Home
           </Link>
@@ -45,6 +45,7 @@ function Navbar() {
             className={`${
               path === "/product" ? "text-blue-800" : "text-black"
             }`}
+            prefetch={true}
           >
             Product
           </Link>
@@ -53,6 +54,7 @@ function Navbar() {
             className={`${
               path === "/contact" ? "text-blue-800" : "text-black"
             }`}
+            prefetch={true}
           >
             Contact
           </Link>
@@ -62,7 +64,7 @@ function Navbar() {
             "flex justify-around items-center w-[20%] mr-1 md:w-[15%] lg:w-[10%] "
           }
         >
-          <Link href="/cart">
+          <Link href="/cart" prefetch={true}>
             <FontAwesomeIcon icon={faCartShopping} />
           </Link>
           {has ? (
@@ -71,6 +73,7 @@ function Navbar() {
             <Link
               href="/log-in"
               className="bg-blue-400 text-center p-2 w-2/4 font-semibold hover:bg-blue-500 rounded-3xl"
+              prefetch={true}
             >
               Login
             </Link>

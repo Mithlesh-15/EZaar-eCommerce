@@ -41,8 +41,8 @@ fetchData()
                             />
                     </div>
                   )):"No Product"}
-        <Footer />
       </div>
+        <Footer />
     </>
   );
 }
