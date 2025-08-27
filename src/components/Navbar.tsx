@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import UserDropDown from "./UserDropDown";
+import { User } from "lucide-react";
 function Navbar() {
   const [has, setHas] = useState(false);
   const path = usePathname();
@@ -75,7 +76,8 @@ function Navbar() {
               className="bg-blue-400 text-center p-2 w-2/4 font-semibold hover:bg-blue-500 rounded-3xl"
               prefetch={true}
             >
-              Login
+              <User className="w-5 h-5 block sm:hidden" />
+              <span className="hidden sm:block">Log In</span>
             </Link>
           )}
         </div>

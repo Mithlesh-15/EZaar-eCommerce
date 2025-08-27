@@ -10,7 +10,7 @@ export default function Slide() {
 
   const [index, setIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
-  const delay: number = 2500;
+  const delay: number = 3000;
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function Slide() {
   return (
     <section className="w-full relative overflow-hidden my-10 select-none">
       <div
-        className="w-full h-[40vh] sm:h-[60vh] md:h-[60vh] lg:h-[65vh] flex transition-transform duration-700"
+        className="w-full h-[25vh] sm:h-[60vh] md:h-[60vh] lg:h-[65vh] flex transition-transform duration-700"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         aria-roledescription="carousel"
@@ -43,7 +43,7 @@ export default function Slide() {
                 fill
                 priority={i === 0}
                 placeholder="empty"
-                className="object-cover"
+                className="object-contain"
               />
             </div>
           ))}
