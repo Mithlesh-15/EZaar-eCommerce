@@ -29,8 +29,9 @@ fetchData()
       <Navbar />
       <div className="py-4 px-10 flex flex-wrap gap-6">
         {Product.length>0  ? Product.map((item) => (
-                    <div key={Math.random()}>
+                    
                       <ProductCard
+                      key={Math.random()}
                               imageUrl={item.imageUrl}
                               productName={item.productName}
                               price={item.price}
@@ -39,7 +40,6 @@ fetchData()
                               description={item.description}
                               owner={false}
                             />
-                    </div>
                   )):"No Product"}
       </div>
         <Footer />

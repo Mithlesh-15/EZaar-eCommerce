@@ -70,7 +70,7 @@ export default function Home() {
         {data.length > 0 ? (
           data.map((item) => (
               <ProductCard
-              key={item._id}
+              key={Math.random()}
                 imageUrl={item.imageUrl}
                 productName={item.productName}
                 price={item.price}

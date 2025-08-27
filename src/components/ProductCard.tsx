@@ -3,7 +3,6 @@ import Image from "next/image";
 import { ShoppingCart, Trash } from "lucide-react";
 
 type ProductType = {
-  key:string
   imageUrl: string;
   productName: string;
   price: number;
@@ -14,7 +13,6 @@ type ProductType = {
 };
 
 export default function ProductCard({
-  key,
   imageUrl,
   productName,
   price,
@@ -24,7 +22,7 @@ export default function ProductCard({
   owner,
 }: ProductType) {
   return (
-    <div key={key} className="w-[300px] bg-white rounded-xl shadow-md p-5 flex flex-col gap-4 border-1">
+    <div className="w-[300px] bg-white rounded-xl shadow-md p-5 flex flex-col gap-4 border-1">
       {/* Category */}
       <span className="bg-gray-100 text-gray-600 text-xs font-medium px-3 py-1 rounded-md w-fit">
         {category}
