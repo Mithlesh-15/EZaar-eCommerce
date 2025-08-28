@@ -50,7 +50,7 @@ export default function SignUpPage() {
     "West Bengal",
   ];
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { value, name } = e.target;
     switch (name) {
       case "username":
@@ -69,7 +69,7 @@ export default function SignUpPage() {
         setPinCode(value);
         break;
       case "agreeToTerms":
-        setAgreeToTerms(value);
+        setAgreeToTerms(!agreeToTerms);
         break;
     }
   };
