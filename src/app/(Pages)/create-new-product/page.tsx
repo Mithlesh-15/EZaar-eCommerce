@@ -28,7 +28,7 @@ function CreateNewProduct() {
       description,
     });
     setBtnDisable(false);
-    router.push('/my-account')
+    router.push("/my-account");
   };
   return (
     <>
@@ -98,6 +98,15 @@ function CreateNewProduct() {
                         required
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
+                        onClick={() => {
+                          if (
+                            confirm(
+                              "To upload your photo, go to https://postimages.org/ , upload your photo, copy the direct link, and paste it here. \nThank you."
+                            )
+                          ) {
+                            window.open("https://postimages.org/", "_blank");
+                          }
+                        }}
                       />
                     </div>
 

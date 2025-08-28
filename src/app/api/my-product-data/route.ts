@@ -26,11 +26,7 @@ export async function GET() {
   const user = await Users.findOne({email:decode.email})
   
   const totalProduct : Pro[] = []
-  // user.ownProduct.forEach(async (item:string)=>{
-  //   const product = await Products.findById(item)
-    
-  //   totalProduct.push(...product)
-  // })
+  
   for (const item of user.ownProduct) {
       const product = await Products.findById(item);
       if (product) {

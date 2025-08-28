@@ -20,6 +20,7 @@ export default function Home() {
   const [data, setData] = useState<Pro[]>([]);
   const fetch = async () => {
     const res = await axios.get("/api/get-product-home");
+     if(res.data.allProduct === undefined) return
     setData(res.data.allProduct);
   };
   useEffect(() => {

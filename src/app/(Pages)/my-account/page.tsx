@@ -20,8 +20,7 @@ function MyAccount() {
   const [allProducts, setAllProducts] = useState<Pro[]>([]);
   const fatchData = async () => {
     const res = await axios.get("/api/my-product-data");
-    if(res.data.allProduct) setAllProducts(res.data.allProduct);
-    
+    if (res.data.allProduct) setAllProducts(res.data.allProduct);
   };
   useEffect(() => {
     fatchData();
@@ -47,19 +46,23 @@ function MyAccount() {
           </Link>
         </div>
         <div className="w-full h-[80vh] md:h-full flex justify-center md:justify-start p-10 gap-6 flex-wrap overflow-auto">
-          {allProducts.length>0 && allProducts.map((item) => (
-            <div key={Math.random()}>
-              <ProductCard
-                      imageUrl={item.imageUrl}
-                      productName={item.productName}
-                      price={item.price}
-                      availableStock={item.availableStock}
-                      category={item.category}
-                      description={item.description}
-                      owner={true}
-                    />
-            </div>
-          ))}
+          {allProducts.length > 0 ? (
+            allProducts.map((item) => (
+              <div key={Math.random()}>
+                <ProductCard
+                  imageUrl={item.imageUrl}
+                  productName={item.productName}
+                  price={item.price}
+                  availableStock={item.availableStock}
+                  category={item.category}
+                  description={item.description}
+                  owner={true}
+                />
+              </div>
+            ))
+          ) : (
+            <b>No Product</b>
+          )}
         </div>
       </div>
     </>
