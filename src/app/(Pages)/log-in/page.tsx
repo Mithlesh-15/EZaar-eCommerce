@@ -11,12 +11,12 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signUpButtonDisable, setSignUpButtonDisable] = useState(false);
   const router = useRouter();
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { type, value } = e.target;
     if (type === "email") setEmail(value);
     if (type === "password") setPassword(value);
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     setSignUpButtonDisable(true);
     const res = await axios.post("/api/log-in", {
       email,
