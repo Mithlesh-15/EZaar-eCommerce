@@ -7,6 +7,7 @@ import { Connect } from "@/libs/dbconnection";
 import { JwtPayload } from "jsonwebtoken";
 Connect();
 interface Pro {
+  _id:string,
   imageUrl: string;
   productName: string;
   price: number;
@@ -31,6 +32,7 @@ export async function GET() {
       const product = await Products.findById(item);
       if (product) {
         totalProduct.push({
+          _id:product._id,
           imageUrl: product.imageUrl,
           productName: product.productName,
           price: product.price,

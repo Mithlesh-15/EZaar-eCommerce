@@ -50,6 +50,7 @@ function MyAccount() {
             allProducts.map((item) => (
               <div key={Math.random()}>
                 <ProductCard
+                  id={item._id}
                   imageUrl={item.imageUrl}
                   productName={item.productName}
                   price={item.price}

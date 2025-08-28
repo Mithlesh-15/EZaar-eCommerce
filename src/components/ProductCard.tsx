@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
 import { ShoppingCart, Trash } from "lucide-react";
+import axios from "axios";
 
 type ProductType = {
+  id:string;
   imageUrl: string;
   productName: string;
   price: number;
@@ -13,6 +15,7 @@ type ProductType = {
 };
 
 export default function ProductCard({
+  id,
   imageUrl,
   productName,
   price,
@@ -21,6 +24,10 @@ export default function ProductCard({
   description,
   owner,
 }: ProductType) {
+  const deleteProduct = async ()=>{
+    await axios.post('/api/delete',{id})
+    window.location.reload()
+  }
   return (
     <div className="w-[300px] bg-white rounded-xl shadow-md p-5 flex flex-col gap-4 border-1">
       {/* Category */}
@@ -59,7 +66,7 @@ export default function ProductCard({
 
       {/* Add To Cart Button */}
       {owner ? (
-        <button className="mt-3 flex items-center justify-center gap-2 bg-red-700 text-white px-4 py-2 rounded-lg shadow hover:bg-red-900 transition">
+        <button onClick={deleteProduct} className="mt-3 flex items-center justify-center gap-2 bg-red-700 text-white px-4 py-2 rounded-lg shadow hover:bg-red-900 transition">
           <Trash size={18} />
           Delete
         </button>
