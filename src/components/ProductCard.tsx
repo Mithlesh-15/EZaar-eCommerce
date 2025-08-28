@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ShoppingCart, Trash } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 type ProductType = {
   id: string;
@@ -25,29 +26,24 @@ export default function ProductCard({
   description,
   owner,
 }: ProductType) {
-  const addToCart = async () => {
-    const cart = JSON.parse(localStorage.getItem("allProductInCart") || "[]");
-    interface CartItem {
-      productId: string;
-      count: number;
-    }
-    const newItem = { productId: id, count: 1 };
-
-    // purane cart me item already hai kya?
-    const exist = cart.find((item: CartItem) => item.productId === id);
-
-    if (exist) {
-      exist.count += 1;
-    } else {
-      cart.push(newItem);
-    }
-    localStorage.setItem("allProductInCart", JSON.stringify(cart));
-    toast.success("Product added to cart!");
+  const [showPopup, setShowPopup] = useState(false);
+  const [has, sethas] = useState(false)
+  const [count, setCount] = useState(1);
+  const handleBuy = () => {
+    toast.success("Order placed successfully!");
+    setShowPopup(false);
   };
   const deleteProduct = async () => {
     await axios.post("/api/delete", { id });
     window.location.reload();
   };
+  const login = async()=>{
+   const res = await axios.get('/api/is-logged-in')
+   sethas(res.data.logIn)
+  }
+  useEffect(()=>{
+    login()
+  },[])
   return (
     <div className="w-[300px] bg-white rounded-xl shadow-md p-5 flex flex-col gap-4 border-1">
       {/* Category */}
@@ -95,12 +91,73 @@ export default function ProductCard({
         </button>
       ) : (
         <button
-          onClick={addToCart}
-          className="mt-3 flex items-center justify-center gap-2 bg-black text-white px-4 py-2 rounded-lg shadow hover:bg-gray-800 transition"
+          className="mt-3 flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg shadow hover:bg-green-700 transition"
+          onClick={() => {
+            if(!has) {
+              toast.error("Please login first")
+              return
+            }
+            setCount(1);
+            setShowPopup(true);
+          }}
         >
           <ShoppingCart size={18} />
-          Add To Cart
+          Buy
         </button>
+      )}
+      {(showPopup && has) && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div
+            className="bg-white rounded-lg shadow-lg w-full max-w-sm p-6 text-center
+                    transform transition-transform duration-200 scale-100 sm:scale-100 md:scale-105"
+          >
+            <h2 className="text-lg sm:text-xl font-bold mb-3">
+              Confirm Purchase
+            </h2>
+            <p className="text-lg sm:text-xl mb-3">
+              You want to buy <b>{productName}</b>
+            </p>
+            <div className=" w-full h-auto p-3">
+              <button
+                onClick={() => {
+                  if (count === 1) return;
+                  setCount((prev) => prev - 1);
+                }}
+                className="border-1 p-1 font-bold mx-5 cursor-pointer text-center"
+              >
+                -
+              </button>
+
+              <span>{count}</span>
+              <button
+                onClick={() => setCount((prev) => prev + 1)}
+                className="border-1 p-1 font-bold mx-5 cursor-pointer text-center"
+              >
+                +
+              </button>
+            </div>
+            <div className="w-full h-auto p-5">
+              <b>Price : ₹</b>
+              {price * count}
+            </div>
+            <label htmlFor="address">Enter Your Full Address</label>
+            <textarea name="address" className="border-2 my-4 p-3" placeholder="Enter Address"></textarea>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <button
+                onClick={() => setShowPopup(false)}
+                className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleBuy}
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+              >
+                Buy
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

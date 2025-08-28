@@ -65,7 +65,7 @@ function Navbar() {
             "flex justify-around items-center w-[20%] mr-1 md:w-[15%] lg:w-[10%] "
           }
         >
-          <Link href="/cart" prefetch={true}>
+          <Link href="/" prefetch={true}>
             <FontAwesomeIcon icon={faCartShopping} />
           </Link>
           {has ? (
