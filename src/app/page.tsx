@@ -20,7 +20,7 @@ export default function Home() {
   const [data, setData] = useState<Pro[]>([]);
   const fetch = async () => {
     const res = await axios.get("/api/get-product-home");
-     if(res.data.allProduct === undefined) return
+    if (res.data.allProduct === undefined) return;
     setData(res.data.allProduct);
   };
   useEffect(() => {
@@ -30,58 +30,21 @@ export default function Home() {
     <>
       <Navbar />
       <Slide />
-      {/* <div className=" w-full h-auto grid p-10 gap-4 mx-auto lg:grid-cols-3">
-        <div className="w-full h-full flex justify-center">
-          {data.length > 0
-            ? data.map((item) => (
-                <div key={Math.random()} className="flex bg-sky-500 w-full h-full">
-                  <ProductCard
-                    imageUrl={item.imageUrl}
-                    productName={item.productName}
-                    price={item.price}
-                    availableStock={item.availableStock}
-                    category={item.category}
-                    description={item.description}
-                    owner={false}
-                  />
-                  <ProductCard
-                    imageUrl={item.imageUrl}
-                    productName={item.productName}
-                    price={item.price}
-                    availableStock={item.availableStock}
-                    category={item.category}
-                    description={item.description}
-                    owner={false}
-                  />
-                  <ProductCard
-                    imageUrl={item.imageUrl}
-                    productName={item.productName}
-                    price={item.price}
-                    availableStock={item.availableStock}
-                    category={item.category}
-                    description={item.description}
-                    owner={false}
-                  />
-                </div>
-              ))
-            : "No Product"}
-        </div>
-      </div> */}
-      <div className="w-full h-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-10 mx-auto">
+
+      <div className="w-full h-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-10 mx-auto justify-items-center">
         {data.length > 0 ? (
           data.map((item) => (
-              <ProductCard
+            <ProductCard
               id={item._id}
               key={Math.random()}
-                imageUrl={item.imageUrl}
-                productName={item.productName}
-                price={item.price}
-                availableStock={item.availableStock}
-                category={item.category}
-                description={item.description}
-                owner={false}
-              />
-              
+              imageUrl={item.imageUrl}
+              productName={item.productName}
+              price={item.price}
+              availableStock={item.availableStock}
+              category={item.category}
+              description={item.description}
+              owner={false}
+            />
           ))
         ) : (
           <p>No Product</p>

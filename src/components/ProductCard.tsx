@@ -2,9 +2,10 @@
 import Image from "next/image";
 import { ShoppingCart, Trash } from "lucide-react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 type ProductType = {
-  id:string;
+  id: string;
   imageUrl: string;
   productName: string;
   price: number;
@@ -24,10 +25,29 @@ export default function ProductCard({
   description,
   owner,
 }: ProductType) {
-  const deleteProduct = async ()=>{
-    await axios.post('/api/delete',{id})
-    window.location.reload()
-  }
+  const addToCart = async () => {
+    const cart = JSON.parse(localStorage.getItem("allProductInCart") || "[]");
+    interface CartItem {
+      productId: string;
+      count: number;
+    }
+    const newItem = { productId: id, count: 1 };
+
+    // purane cart me item already hai kya?
+    const exist = cart.find((item: CartItem) => item.productId === id);
+
+    if (exist) {
+      exist.count += 1;
+    } else {
+      cart.push(newItem);
+    }
+    localStorage.setItem("allProductInCart", JSON.stringify(cart));
+    toast.success("Product added to cart!");
+  };
+  const deleteProduct = async () => {
+    await axios.post("/api/delete", { id });
+    window.location.reload();
+  };
   return (
     <div className="w-[300px] bg-white rounded-xl shadow-md p-5 flex flex-col gap-4 border-1">
       {/* Category */}
@@ -66,12 +86,18 @@ export default function ProductCard({
 
       {/* Add To Cart Button */}
       {owner ? (
-        <button onClick={deleteProduct} className="mt-3 flex items-center justify-center gap-2 bg-red-700 text-white px-4 py-2 rounded-lg shadow hover:bg-red-900 transition">
+        <button
+          onClick={deleteProduct}
+          className="mt-3 flex items-center justify-center gap-2 bg-red-700 text-white px-4 py-2 rounded-lg shadow hover:bg-red-900 transition"
+        >
           <Trash size={18} />
           Delete
         </button>
       ) : (
-        <button className="mt-3 flex items-center justify-center gap-2 bg-black text-white px-4 py-2 rounded-lg shadow hover:bg-gray-800 transition">
+        <button
+          onClick={addToCart}
+          className="mt-3 flex items-center justify-center gap-2 bg-black text-white px-4 py-2 rounded-lg shadow hover:bg-gray-800 transition"
+        >
           <ShoppingCart size={18} />
           Add To Cart
         </button>
